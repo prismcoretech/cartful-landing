@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Cartful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green-500:  #5e8054;
+      --green-600:  #4a6742;
+      --green-100:  #e6ede2;
+      --stone-50:   #fafaf9;
+      --stone-100:  #f5f5f4;
+      --stone-200:  #e7e5e4;
+      --stone-400:  #a8a29e;
+      --stone-600:  #57534e;
+      --stone-900:  #1c1917;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--stone-50);
+      color: var(--stone-900);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      padding: 1.75rem 2rem;
+      border-bottom: 1px solid var(--stone-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--stone-900);
+    }
+
+    .nav-mark svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-wordmark {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--stone-900);
+    }
+
+    .nav-back {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--stone-400);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .nav-back:hover {
+      color: var(--stone-600);
+    }
+
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      flex: 1;
+    }
+
+    .page-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--green-500);
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      color: var(--stone-900);
+      margin-bottom: 0.75rem;
+    }
+
+    .page-date {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--stone-400);
+      margin-bottom: 3rem;
+    }
+
+    .placeholder-banner {
+      background: var(--green-100);
+      border-left: 3px solid var(--green-500);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin-bottom: 3rem;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--green-600);
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-family: 'Lora', serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--stone-900);
+      margin-bottom: 0.75rem;
+    }
+
+    .section p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--stone-600);
+    }
+
+    .section p + p {
+      margin-top: 0.75rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--stone-200);
+      margin: 3rem 0;
+    }
+
+    .contact-block {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--stone-600);
+      line-height: 1.8;
+    }
+
+    .contact-block a {
+      color: var(--green-500);
+      text-decoration: none;
+      border-bottom: 1px solid var(--green-100);
+      transition: border-color 0.15s ease;
+    }
+
+    .contact-block a:hover {
+      border-color: var(--green-500);
+    }
+
+    footer {
+      border-top: 1px solid var(--stone-200);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--stone-400);
+      font-weight: 300;
+    }
+
+    .footer-home {
+      font-size: 0.78rem;
+      color: var(--stone-400);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-home:hover {
+      color: var(--stone-600);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="/">
+      <span class="nav-mark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-hidden="true">
+          <rect width="500" height="500" rx="110" fill="#5e8054"/>
+          <path d="M154.93,192.34c-.54-88.61,186.44-88.2,187,0" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round"/>
+          <path d="M128.59,195.97h242.81c7.96,0,14.4,6.21,14.4,13.87h0c0,7.66-6.45,13.87-14.4,13.87h-242.81c-7.96,0-14.4-6.21-14.4-13.87h0c0-7.66,6.45-13.87,14.4-13.87Z" fill="#fff"/>
+          <path d="M120.43,221.97h256l-30,152h-196l-30-152Z" fill="#fff"/>
+          <line x1="124.98" y1="263.91" x2="376.05" y2="263.91" stroke="#5e8054" stroke-width="7" opacity="0.22"/>
+          <line x1="130.43" y1="309.97" x2="366.43" y2="309.97" stroke="#5e8054" stroke-width="7" opacity="0.22"/>
+          <line x1="183.43" y1="221.97" x2="168.43" y2="373.97" stroke="#5e8054" stroke-width="7" opacity="0.22"/>
+          <line x1="248.43" y1="221.97" x2="248.43" y2="373.97" stroke="#5e8054" stroke-width="7" opacity="0.22"/>
+          <line x1="313.43" y1="221.97" x2="328.43" y2="373.97" stroke="#5e8054" stroke-width="7" opacity="0.22"/>
+          <path d="M248.43,195.97c-2-20-22-40-36-34-2,14,14,30,36,34Z" fill="#a9c09f"/>
+          <path d="M248.43,195.97c2-24,26-44,40-36,0,14-20,30-40,36Z" fill="#7f9f74"/>
+        </svg>
+      </span>
+      <span class="nav-wordmark">Cartful</span>
+    </a>
+    <a class="nav-back" href="/">&larr; Back</a>
+  </nav>
+
+  <main class="content">
+
+    <p class="page-label">Legal</p>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-date">Last updated: placeholder — full policy will be published before launch.</p>
+
+    <div class="placeholder-banner">
+      Cartful is currently in development. This privacy policy is a placeholder and will be replaced with a complete, legally reviewed policy before the app launches and any user data is collected.
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">What we will collect</h2>
+      <p>When Cartful launches, we will collect only what is necessary to provide the service: your email address for your account, the recipes and meal plans you create, and the grocery orders you place through the app.</p>
+      <p>We will not sell your data. We will not share it with third parties for advertising purposes.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">How we will use it</h2>
+      <p>Your data will be used to operate the app, save your recipes and plans, power AI features you explicitly use, and communicate with you about your account. Nothing else.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Waitlist emails</h2>
+      <p>If you join the waitlist, your email address is stored solely to notify you when Cartful is available. You can request removal at any time by emailing us below.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Your rights</h2>
+      <p>You will have the right to access, correct, export, and delete your data at any time. The full policy published at launch will detail how to exercise these rights.</p>
+    </div>
+
+    <hr />
+
+    <div class="contact-block">
+      Questions about privacy? Reach us at <a href="mailto:hello@prismcoretech.com">hello@prismcoretech.com</a>.
+    </div>
+
+  </main>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 PrismCore AI, LLC</span>
+    <a class="footer-home" href="/">cartfulapp.com</a>
+  </footer>
+
+</body>
+</html>
