@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartful — Meal planning, made real.</title>
+  <meta name="description" content="Cartful turns scattered recipe ideas into a weekly meal plan and a ready-to-order grocery cart. Coming soon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green-50:   #f4f7f2;
+      --green-100:  #e6ede2;
+      --green-200:  #cddbc6;
+      --green-300:  #a9c09f;
+      --green-400:  #7f9f74;
+      --green-500:  #5e8054;
+      --green-600:  #4a6742;
+      --green-700:  #3b5235;
+      --stone-50:   #fafaf9;
+      --stone-100:  #f5f5f4;
+      --stone-200:  #e7e5e4;
+      --stone-400:  #a8a29e;
+      --stone-600:  #57534e;
+      --stone-900:  #1c1917;
+      --terra-500:  #d4714a;
+    }
+
+    html, body {
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--green-500);
+      color: var(--stone-50);
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(169,192,159,0.15) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0;
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .mark-wrap {
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    .mark-wrap svg {
+      width: 96px;
+      height: 96px;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15));
+    }
+
+    .wordmark {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.25s;
+    }
+
+    .tagline {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--green-200);
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.4s;
+    }
+
+    .rule {
+      width: 2.5rem;
+      height: 1px;
+      background: rgba(255,255,255,0.25);
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.5s;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 100px;
+      padding: 0.45rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-100);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.55s;
+    }
+
+    .badge-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green-300);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .description {
+      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--green-100);
+      max-width: 420px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.65s;
+    }
+
+    .notify-wrap {
+      width: 100%;
+      max-width: 380px;
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.8s;
+    }
+
+    .notify-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green-300);
+      margin-bottom: 0.75rem;
+    }
+
+    .notify-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .notify-input {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .notify-input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .notify-input:focus {
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .notify-btn {
+      background: #ffffff;
+      color: var(--green-600);
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .notify-btn:hover {
+      background: var(--green-50);
+      transform: translateY(-1px);
+    }
+
+    .notify-btn:active {
+      transform: translateY(0);
+    }
+
+    .notify-confirm {
+      display: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--green-200);
+      margin-top: 0.75rem;
+      text-align: center;
+    }
+
+    .notify-confirm.visible {
+      display: block;
+    }
+
+    .page-footer {
+      margin-top: 4rem;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+      opacity: 0;
+      animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 0.95s;
+    }
+
+    .page-footer a {
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .page-footer a:hover {
+      color: rgba(255,255,255,0.7);
+    }
+
+    @keyframes fadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .notify-row {
+        flex-direction: column;
+      }
+
+      .notify-btn {
+        width: 100%;
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="mark-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="Cartful">
+        <rect width="500" height="500" rx="110" fill="rgba(255,255,255,0.12)"/>
+        <path d="M154.93,192.34c-.54-88.61,186.44-88.2,187,0" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round"/>
+        <path d="M128.59,195.97h242.81c7.96,0,14.4,6.21,14.4,13.87h0c0,7.66-6.45,13.87-14.4,13.87h-242.81c-7.96,0-14.4-6.21-14.4-13.87h0c0-7.66,6.45-13.87,14.4-13.87Z" fill="#fff"/>
+        <path d="M120.43,221.97h256l-30,152h-196l-30-152Z" fill="#fff"/>
+        <line x1="124.98" y1="263.91" x2="376.05" y2="263.91" stroke="#5e8054" stroke-width="7" opacity="0.25"/>
+        <line x1="130.43" y1="309.97" x2="366.43" y2="309.97" stroke="#5e8054" stroke-width="7" opacity="0.25"/>
+        <line x1="183.43" y1="221.97" x2="168.43" y2="373.97" stroke="#5e8054" stroke-width="7" opacity="0.25"/>
+        <line x1="248.43" y1="221.97" x2="248.43" y2="373.97" stroke="#5e8054" stroke-width="7" opacity="0.25"/>
+        <line x1="313.43" y1="221.97" x2="328.43" y2="373.97" stroke="#5e8054" stroke-width="7" opacity="0.25"/>
+        <path d="M248.43,195.97c-2-20-22-40-36-34-2,14,14,30,36,34Z" fill="#a9c09f"/>
+        <path d="M248.43,195.97c2-24,26-44,40-36,0,14-20,30-40,36Z" fill="#7f9f74"/>
+      </svg>
+    </div>
+
+    <h1 class="wordmark">Cartful</h1>
+
+    <p class="tagline">Know what's in your cart.</p>
+
+    <div class="rule"></div>
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Coming soon
+    </div>
+
+    <p class="description">Your recipes, your meal plan, your grocery cart. From idea to checkout in minutes, with clean ingredients and nothing forgotten.</p>
+    
+    <div class="notify-wrap">
+      <label class="notify-label" for="email-input">Get notified at launch</label>
+      <div class="notify-row">
+        <input
+          class="notify-input"
+          id="email-input"
+          type="email"
+          placeholder="your@email.com"
+          autocomplete="email"
+        />
+        <button class="notify-btn" onclick="handleNotify()">Notify me</button>
+      </div>
+      <p class="notify-confirm" id="notify-confirm">You're on the list. We'll be in touch.</p>
+    </div>
+
+    <p class="page-footer">
+      A <a href="https://prismcoretech.com">PrismCore AI</a> product &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a>
+    </p>
+
+  </div>
+
+  <script>
+    function handleNotify() {
+      const input = document.getElementById('email-input');
+      const confirm = document.getElementById('notify-confirm');
+      const email = input.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (!valid) {
+        input.style.borderColor = 'rgba(212, 113, 74, 0.7)';
+        input.focus();
+        setTimeout(() => {
+          input.style.borderColor = '';
+        }, 1500);
+        return;
+      }
+
+      // Swap form for confirmation
+      input.parentElement.style.display = 'none';
+      confirm.classList.add('visible');
+    }
+
+    document.getElementById('email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleNotify();
+    });
+  </script>
+
+</body>
+</html>
