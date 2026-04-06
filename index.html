@@ -25,7 +25,6 @@
       --green-600:  #4a6742;
       --green-700:  #3b5235;
       --stone-50:   #fafaf9;
-      --stone-100:  #f5f5f4;
       --stone-200:  #e7e5e4;
       --stone-400:  #a8a29e;
       --stone-600:  #57534e;
@@ -33,8 +32,7 @@
       --terra-500:  #d4714a;
     }
 
-    html, body {
-      height: 100%;
+    html {
       -webkit-font-smoothing: antialiased;
     }
 
@@ -42,14 +40,13 @@
       background-color: var(--green-500);
       color: var(--stone-50);
       font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 3rem 2rem;
+      padding: 4rem 2rem;
       position: relative;
-      overflow: hidden;
     }
 
     body::before {
@@ -82,7 +79,6 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 0;
       max-width: 560px;
       width: 100%;
     }
@@ -95,15 +91,15 @@
     }
 
     .mark-wrap svg {
-      width: 96px;
-      height: 96px;
+      width: 88px;
+      height: 88px;
       filter: drop-shadow(0 8px 24px rgba(0,0,0,0.15));
     }
 
     .wordmark {
       font-family: 'Lora', serif;
       font-weight: 700;
-      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      font-size: clamp(2.6rem, 8vw, 4.5rem);
       letter-spacing: -0.02em;
       color: #ffffff;
       line-height: 1;
@@ -116,11 +112,11 @@
     .tagline {
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-size: clamp(0.95rem, 2.5vw, 1.15rem);
       color: var(--green-200);
       letter-spacing: 0.01em;
       line-height: 1.5;
-      margin-bottom: 3.5rem;
+      margin-bottom: 3rem;
       opacity: 0;
       animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       animation-delay: 0.4s;
@@ -130,7 +126,7 @@
       width: 2.5rem;
       height: 1px;
       background: rgba(255,255,255,0.25);
-      margin-bottom: 3.5rem;
+      margin-bottom: 3rem;
       opacity: 0;
       animation: fadeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       animation-delay: 0.5s;
@@ -160,6 +156,7 @@
       height: 5px;
       border-radius: 50%;
       background: var(--green-300);
+      flex-shrink: 0;
       animation: pulse 2.5s ease-in-out infinite;
     }
 
@@ -169,7 +166,7 @@
     }
 
     .description {
-      font-size: clamp(0.95rem, 2vw, 1.05rem);
+      font-size: clamp(0.92rem, 2vw, 1.05rem);
       font-weight: 300;
       line-height: 1.75;
       color: var(--green-100);
@@ -205,6 +202,7 @@
 
     .notify-input {
       flex: 1;
+      min-width: 0;
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 10px;
@@ -237,6 +235,7 @@
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
+      flex-shrink: 0;
       transition: background 0.15s ease, transform 0.15s ease;
     }
 
@@ -263,7 +262,7 @@
     }
 
     .page-footer {
-      margin-top: 4rem;
+      margin-top: 3.5rem;
       font-size: 0.75rem;
       font-weight: 300;
       color: rgba(255,255,255,0.3);
@@ -294,21 +293,24 @@
     }
 
     @media (max-width: 480px) {
+      body {
+        padding: 3rem 1.5rem;
+        justify-content: flex-start;
+      }
+
       .notify-row {
         flex-direction: column;
       }
 
       .notify-btn {
         width: 100%;
-        padding: 0.8rem;
+        padding: 0.85rem;
       }
     }
   </style>
 </head>
 <body>
-
   <div class="page">
-
     <div class="mark-wrap">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" aria-label="Cartful">
         <rect width="500" height="500" rx="110" fill="rgba(255,255,255,0.12)"/>
@@ -337,7 +339,7 @@
     </div>
 
     <p class="description">Your recipes, your meal plan, your grocery cart. From idea to checkout in minutes, with clean ingredients and nothing forgotten.</p>
-    
+
     <div class="notify-wrap">
       <label class="notify-label" for="email-input">Get notified at launch</label>
       <div class="notify-row">
@@ -356,7 +358,6 @@
     <p class="page-footer">
       A <a href="https://prismcoretech.com">PrismCore AI</a> product &nbsp;·&nbsp; <a href="/privacy.html">Privacy Policy</a>
     </p>
-
   </div>
 
   <script>
@@ -365,25 +366,18 @@
       const confirm = document.getElementById('notify-confirm');
       const email = input.value.trim();
       const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
       if (!valid) {
         input.style.borderColor = 'rgba(212, 113, 74, 0.7)';
         input.focus();
-        setTimeout(() => {
-          input.style.borderColor = '';
-        }, 1500);
+        setTimeout(() => { input.style.borderColor = ''; }, 1500);
         return;
       }
-
-      // Swap form for confirmation
       input.parentElement.style.display = 'none';
       confirm.classList.add('visible');
     }
-
     document.getElementById('email-input').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') handleNotify();
     });
   </script>
-
 </body>
 </html>
