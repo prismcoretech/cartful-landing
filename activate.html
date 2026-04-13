@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Activate Account — Cartful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #fafaf9;
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: #f5f5f4;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(28, 25, 23, 0.06);
+      max-width: 440px;
+      width: 100%;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .wordmark {
+      font-family: 'Lora', serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: #1c1917;
+      margin-bottom: 32px;
+    }
+
+    .body-text {
+      font-size: 15px;
+      font-weight: 400;
+      color: #57534e;
+      line-height: 1.6;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e7e5e4;
+      border-top-color: #5e8054;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success */
+    .checkmark {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 20px;
+    }
+
+    .success-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #5e8054;
+      margin-bottom: 12px;
+    }
+
+    /* Error */
+    .error-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #c0392b;
+      margin-bottom: 12px;
+    }
+
+    .error-message {
+      font-size: 13px;
+      color: #c0392b;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .hint {
+      font-size: 13px;
+      color: #a8a29e;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .state { display: none; }
+    .state.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="wordmark">Cartful</div>
+
+    <div id="state-loading" class="state active">
+      <div class="spinner"></div>
+      <p class="body-text">Activating your account…</p>
+    </div>
+
+    <div id="state-success" class="state">
+      <svg class="checkmark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="22" stroke="#5e8054" stroke-width="3" fill="none"/>
+        <path d="M14 24.5l7 7 13-14" stroke="#5e8054" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="success-title">Your account is activated!</p>
+      <p class="body-text">You can close this page and open the Cartful app to sign in.</p>
+    </div>
+
+    <div id="state-error" class="state">
+      <p class="error-title">Activation failed</p>
+      <p class="error-message" id="error-message"></p>
+      <p class="hint">This link may have expired. Open the app and request a new activation email from your profile.</p>
+    </div>
+  </div>
+
+  <script>
+    // Update this to production URL before launch
+    const API_BASE = "http://localhost:4000";
+
+    (async function activate() {
+      const token = new URLSearchParams(window.location.search).get("token");
+
+      const loading = document.getElementById("state-loading");
+      const success = document.getElementById("state-success");
+      const error = document.getElementById("state-error");
+      const errorMsg = document.getElementById("error-message");
+
+      if (!token) {
+        loading.classList.remove("active");
+        errorMsg.textContent = "Invalid link — no activation token found. Try opening the link from your email again.";
+        error.classList.add("active");
+        return;
+      }
+
+      try {
+        const res = await fetch(API_BASE + "/v1/users/activate", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: token }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => null);
+          const msg = data && data.error ? data.error : "Something went wrong. Please try again.";
+          throw new Error(msg);
+        }
+
+        loading.classList.remove("active");
+        success.classList.add("active");
+      } catch (err) {
+        loading.classList.remove("active");
+        errorMsg.textContent = err.message;
+        error.classList.add("active");
+      }
+    })();
+  </script>
+</body>
+</html>
