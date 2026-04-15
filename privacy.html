@@ -116,16 +116,19 @@
       margin-bottom: 3rem;
     }
 
-    .placeholder-banner {
-      background: var(--green-100);
-      border-left: 3px solid var(--green-500);
-      border-radius: 0 8px 8px 0;
-      padding: 1rem 1.25rem;
-      margin-bottom: 3rem;
-      font-size: 0.88rem;
-      font-weight: 400;
-      color: var(--green-600);
-      line-height: 1.6;
+    .intro p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--stone-600);
+    }
+
+    .intro p + p {
+      margin-top: 0.75rem;
+    }
+
+    .intro {
+      margin-bottom: 2.5rem;
     }
 
     .section {
@@ -140,7 +143,8 @@
       margin-bottom: 0.75rem;
     }
 
-    .section p {
+    .section p,
+    .section ul {
       font-size: 0.95rem;
       font-weight: 300;
       line-height: 1.8;
@@ -149,6 +153,33 @@
 
     .section p + p {
       margin-top: 0.75rem;
+    }
+
+    .section ul {
+      margin: 0.75rem 0;
+      padding-left: 1.25rem;
+    }
+
+    .section ul li {
+      margin-bottom: 0.4rem;
+    }
+
+    .section strong {
+      font-weight: 500;
+      color: var(--stone-900);
+    }
+
+    .section a,
+    .intro a {
+      color: var(--green-500);
+      text-decoration: none;
+      border-bottom: 1px solid var(--green-100);
+      transition: border-color 0.15s ease;
+    }
+
+    .section a:hover,
+    .intro a:hover {
+      border-color: var(--green-500);
     }
 
     hr {
@@ -231,37 +262,77 @@
 
     <p class="page-label">Legal</p>
     <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-date">Last updated: placeholder — full policy will be published before launch.</p>
+    <p class="page-date">Last updated: April 14, 2026</p>
 
-    <div class="placeholder-banner">
-      Cartful is currently in development. This privacy policy is a placeholder and will be replaced with a complete, legally reviewed policy before the app launches and any user data is collected.
+    <div class="intro">
+      <p>Cartful is a meal planning and grocery app operated by PrismCore AI, LLC ("we," "us," or "our"). This policy describes what information we collect when you use Cartful, how we use it, and what rights you have over it.</p>
+      <p>If you have questions, you can reach us at <a href="mailto:hello@prismcoretech.com">hello@prismcoretech.com</a> at any time.</p>
     </div>
 
     <div class="section">
-      <h2 class="section-title">What we will collect</h2>
-      <p>When Cartful launches, we will collect only what is necessary to provide the service: your email address for your account, the recipes and meal plans you create, and the grocery orders you place through the app.</p>
-      <p>We will not sell your data. We will not share it with third parties for advertising purposes.</p>
+      <h2 class="section-title">1. Information we collect</h2>
+      <p><strong>Account information.</strong> When you register, we collect your email address, first name, last name, and a hashed version of your password. We never store your password in plain text. If you choose to sign in with Apple, we receive an Apple-issued identifier and, if you share it, your email address.</p>
+      <p><strong>Household and dietary information.</strong> During setup you may tell us about your household, including the number of adults and children, age ranges, dietary preferences, and food allergies. This information is used solely to personalize your meal planning experience.</p>
+      <p><strong>Recipes, meal plans, and shopping history.</strong> We store the recipes you create, import, or save; the meal plans you build; your shopping carts; and your order history. This is the core data that makes Cartful work.</p>
+      <p><strong>AI feature usage.</strong> When you use AI-powered features, we log which feature was used, when, and an estimated token count. This is used to enforce usage limits by plan tier. The content of your requests (recipe descriptions, meal preferences, chat messages) is sent to our AI provider to generate a response but is not retained by us beyond what you see in the app.</p>
+      <p><strong>Subscription information.</strong> If you subscribe to Cartful Premium, your payment is handled by Stripe. We store your Stripe customer ID and subscription status. We do not store card numbers or full payment details.</p>
+      <p><strong>Authentication tokens.</strong> Login tokens are stored on your device using the iOS Secure Enclave via Expo SecureStore. We do not collect device identifiers, advertising identifiers, IP addresses, or location data.</p>
     </div>
 
     <div class="section">
-      <h2 class="section-title">How we will use it</h2>
-      <p>Your data will be used to operate the app, save your recipes and plans, power AI features you explicitly use, and communicate with you about your account. Nothing else.</p>
+      <h2 class="section-title">2. How we use your information</h2>
+      <p>We use the information we collect to operate and improve Cartful. Specifically, that means:</p>
+      <ul>
+        <li>Saving your recipes, meal plans, and shopping history so you can access them across sessions</li>
+        <li>Generating AI-powered recipes, meal plans, and recommendations based on your preferences</li>
+        <li>Managing your subscription and processing payments through Stripe</li>
+        <li>Sending transactional emails such as account activation and password reset messages</li>
+        <li>Enforcing usage limits based on your subscription tier</li>
+      </ul>
+      <p>We do not use your data for advertising. We do not build advertising profiles. We do not sell your data to any third party.</p>
+      <p>We plan to add app analytics in the future to help us understand how the app is used and where to improve it. When we do, we will update this policy before enabling any analytics collection.</p>
     </div>
 
     <div class="section">
-      <h2 class="section-title">Waitlist emails</h2>
-      <p>If you join the waitlist, your email address is stored solely to notify you when Cartful is available. You can request removal at any time by emailing us below.</p>
+      <h2 class="section-title">3. Third-party services</h2>
+      <p>Cartful relies on the following third-party services. Each receives only the data necessary to perform its function.</p>
+      <p><strong>Anthropic.</strong> We use Anthropic's Claude models to power AI features including recipe generation, meal planning, and the Brainstorm assistant. When you use these features, the relevant content (recipe descriptions, dietary preferences, chat messages) is sent to Anthropic's API. No account identifiers, names, or email addresses are included in these requests. You can review Anthropic's privacy practices at <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">anthropic.com/privacy</a>.</p>
+      <p><strong>Stripe.</strong> Stripe processes subscription payments. When you subscribe, your email address and billing information are shared with Stripe in order to create and manage your subscription. Stripe's privacy policy is available at <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a>.</p>
+      <p><strong>Postmark.</strong> We use Postmark to deliver transactional emails. Your email address and first name are shared with Postmark solely for the purpose of sending account-related messages. Postmark's privacy policy is available at <a href="https://postmarkapp.com/privacy-policy" target="_blank" rel="noopener">postmarkapp.com/privacy-policy</a>.</p>
+      <p><strong>Apple.</strong> If you use Sign in with Apple, Apple authenticates your identity and shares a unique identifier and, at your option, your email address with us. Apple's privacy policy is available at <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>.</p>
+      <p>We also use nutrition databases (USDA FoodData Central and Open Food Facts) to retrieve ingredient and product information. These services receive ingredient names or product identifiers only. No personal information is transmitted.</p>
+      <p>Recipe images are stored on infrastructure we own and operate. They are not hosted with any third-party cloud storage provider.</p>
     </div>
 
     <div class="section">
-      <h2 class="section-title">Your rights</h2>
-      <p>You will have the right to access, correct, export, and delete your data at any time. The full policy published at launch will detail how to exercise these rights.</p>
+      <h2 class="section-title">4. Data retention</h2>
+      <p>We retain your data for as long as your account is active. If you delete your account, your personal information, recipes, meal plans, and order history are permanently deleted from our systems within 30 days. Aggregated, non-identifiable usage statistics may be retained for internal reporting purposes.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">5. Your rights</h2>
+      <p>You have the right to access, correct, export, and delete the data associated with your account. You can delete your account directly from the profile screen inside the app. To request a data export or correction, contact us at <a href="mailto:hello@prismcoretech.com">hello@prismcoretech.com</a> and we will respond within 30 days.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">6. Children's privacy</h2>
+      <p>Cartful is not directed at children under 13 and we do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, please contact us and we will delete it promptly.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">7. Security</h2>
+      <p>All data is transmitted over HTTPS. Passwords are hashed using bcrypt. Authentication tokens are stored in your device's secure enclave. We do not store payment card details.</p>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">8. Changes to this policy</h2>
+      <p>We will update this policy as Cartful grows, particularly when we introduce analytics or crash reporting. Material changes will be noted with an updated date at the top of this page. For significant changes, we will provide notice via email or an in-app message.</p>
     </div>
 
     <hr />
 
     <div class="contact-block">
-      Questions about privacy? Reach us at <a href="mailto:hello@prismcoretech.com">hello@prismcoretech.com</a>.
+      Questions? Contact us at <a href="mailto:hello@prismcoretech.com">hello@prismcoretech.com</a>.
     </div>
 
   </main>
